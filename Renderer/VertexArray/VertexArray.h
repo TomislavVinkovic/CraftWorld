@@ -14,6 +14,6 @@ class VertexArray {
 
         void addBuffers(const VertexBuffer& vbo, const IndexBuffer& ibo, const VertexBufferLayout& layout);
 
-        void bind();
-        void unbind();
+        void bind() const;
+        void unbind() const;
 };

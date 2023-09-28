@@ -13,6 +13,7 @@ VertexArray::VertexArray(
 }
 
 VertexArray::~VertexArray() {
+    std::cout << m_VAO << std::endl;
     GLCall(glDeleteVertexArrays(1, &m_VAO));
 }
 
@@ -34,10 +35,10 @@ void VertexArray::addBuffers(const VertexBuffer &vbo, const IndexBuffer &ibo, co
     ibo.bind();
 }
 
-void VertexArray::bind() {
+void VertexArray::bind() const {
     GLCall(glBindVertexArray(m_VAO));
 }
 
-void VertexArray::unbind() {
+void VertexArray::unbind() const {
     GLCall(glBindVertexArray(0));
 }

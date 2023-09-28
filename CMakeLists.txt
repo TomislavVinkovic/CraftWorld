@@ -3,7 +3,7 @@ project(CraftWorld)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(src vendor vendor/glad GLDebug Renderer Player Camera Util)
+include_directories(src vendor vendor/glad GLDebug Renderer Player Camera Util Generation Mesh Model)
 
 set(SOURCE_FILES
         vendor/glad/glad.c
@@ -26,6 +26,14 @@ set(SOURCE_FILES
         Renderer/VertexBuffer/VertexBuffer.cpp
         Renderer/VertexBuffer/VertexBuffer.h
         Renderer/VertexBufferLayout/VertexBufferLayout.h
+        Renderer/Texture/TextureAtlas.cpp
+        Renderer/Texture/TextureAtlas.h
+        Generation/Block/ChunkBlockData.cpp
+        Generation/Block/ChunkBlockData.h
+        Model/Block/Block.cpp
+        Model/Block/Block.h
+        Mesh/BlockMesh/BlockMesh.cpp
+        Mesh/BlockMesh/BlockMesh.h
 )
 
 add_executable(CraftWorld ${SOURCE_FILES})
