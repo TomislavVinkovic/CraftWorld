@@ -3,7 +3,7 @@ project(CraftWorld)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(src vendor vendor/glad Renderer Player Camera Util)
+include_directories(src vendor vendor/glad GLDebug Renderer Player Camera Util)
 
 set(SOURCE_FILES
         vendor/glad/glad.c
@@ -19,6 +19,13 @@ set(SOURCE_FILES
         Player/Player.h
         Util/DeltaTime.cpp
         Util/DeltaTime.h
+        Renderer/IndexBuffer/IndexBuffer.cpp
+        Renderer/IndexBuffer/IndexBuffer.h
+        Renderer/VertexArray/VertexArray.cpp
+        Renderer/VertexArray/VertexArray.h
+        Renderer/VertexBuffer/VertexBuffer.cpp
+        Renderer/VertexBuffer/VertexBuffer.h
+        Renderer/VertexBufferLayout/VertexBufferLayout.h
 )
 
 add_executable(CraftWorld ${SOURCE_FILES})

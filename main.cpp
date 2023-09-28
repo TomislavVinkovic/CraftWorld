@@ -14,6 +14,7 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include "VertexArray/VertexArray.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_pos_callback(GLFWwindow* window, double xPosIn, double yPosIn);
@@ -119,28 +120,39 @@ int main() {
             22, 23, 20
     };
 
-    // array buffer
-    unsigned int VAO;
-    GLCall(glCreateVertexArrays(1, &VAO));
-    GLCall(glBindVertexArray(VAO));
+    VertexArray vao;
 
-    // vertex buffer
-    unsigned int VBO;
-    GLCall(glCreateBuffers(1, &VBO));
-    GLCall(glBindBuffer(GL_ARRAY_BUFFER, VBO));
-    GLCall(glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW));
+    VertexBuffer vbo(vertices);
+    VertexBufferLayout layout;
+    layout.push<float>(3); // position
+    layout.push<float>(2); // texture coordinates
 
-    // vertex buffer layout
-    GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) nullptr));
-    GLCall(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))));
-    GLCall(glEnableVertexAttribArray(0));
-    GLCall(glEnableVertexAttribArray(1));
+    IndexBuffer ibo(indices);
 
-    // index buffer
-    unsigned int IBO;
-    GLCall(glCreateBuffers(1, &IBO));
-    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO));
-    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW));
+    vao.addBuffers(vbo, ibo, layout);
+
+//    // array buffer
+//    unsigned int VAO;
+//    GLCall(glCreateVertexArrays(1, &VAO));
+//    GLCall(glBindVertexArray(VAO));
+//
+//    // vertex buffer
+//    unsigned int VBO;
+//    GLCall(glCreateBuffers(1, &VBO));
+//    GLCall(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+//    GLCall(glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW));
+//
+//    // vertex buffer layout
+//    GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) nullptr));
+//    GLCall(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))));
+//    GLCall(glEnableVertexAttribArray(0));
+//    GLCall(glEnableVertexAttribArray(1));
+//
+//    // index buffer
+//    unsigned int IBO;
+//    GLCall(glCreateBuffers(1, &IBO));
+//    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO));
+//    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW));
 
 
     // shader
@@ -175,7 +187,7 @@ int main() {
         GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
         shader.bind();
-        GLCall(glBindVertexArray(VAO));
+        vao.bind();
         GLCall(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr));
         shader.setUniformMat4f("u_View", player.getCamera().getView());
 
