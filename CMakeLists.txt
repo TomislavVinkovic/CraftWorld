@@ -17,8 +17,8 @@ set(SOURCE_FILES
         Camera/Camera.h
         Player/Player.cpp
         Player/Player.h
-        Util/DeltaTime.cpp
-        Util/DeltaTime.h
+        Util/DeltaTime/DeltaTime.cpp
+        Util/DeltaTime/DeltaTime.h
         Renderer/IndexBuffer/IndexBuffer.cpp
         Renderer/IndexBuffer/IndexBuffer.h
         Renderer/VertexArray/VertexArray.cpp
@@ -34,6 +34,17 @@ set(SOURCE_FILES
         Model/Block/Block.h
         Mesh/BlockMesh/BlockMesh.cpp
         Mesh/BlockMesh/BlockMesh.h
+        Model/Chunk/Chunk.cpp
+        Model/Chunk/Chunk.h
+        Mesh/ChunkMesh/ChunkMesh.cpp
+        Mesh/ChunkMesh/ChunkMesh.h
+        Model/ChunkBlock/ChunkBlock.cpp
+        Model/ChunkBlock/ChunkBlock.h
+        Generation/AdjacentChunkPositions.h
+        Generation/AdjacentChunkBlockPositions.h
+        Generation/ChunkMeshGenerator/ChunkMeshGenerator.cpp
+        Generation/ChunkMeshGenerator/ChunkMeshGenerator.h
+        Util/Singleton/Singleton.h
 )
 
 add_executable(CraftWorld ${SOURCE_FILES})

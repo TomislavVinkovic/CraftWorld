@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "DeltaTime.h"
+#include "DeltaTime/DeltaTime.h"
 
 Player::Player(Camera camera) : camera(camera) {}
 

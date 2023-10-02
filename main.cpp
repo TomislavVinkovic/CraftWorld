@@ -7,15 +7,14 @@
 #include "GLDebug/GLDebug.h"
 #include "Shader/Shader.h"
 
-#include "DeltaTime.h"
+#include "DeltaTime/DeltaTime.h"
 #include "Camera.h"
 #include "Player.h"
 
-#include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include "Block/Block.h"
-#include "Block/ChunkBlockData.h"
 #include "Texture/TextureAtlas.h"
+#include "Chunk/Chunk.h"
+#include "ChunkMeshGenerator/ChunkMeshGenerator.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_pos_callback(GLFWwindow* window, double xPosIn, double yPosIn);
@@ -65,9 +64,9 @@ int main() {
     }
 
 
-    Block block(ChunkBlockType::Grass);
-    block.bind();
-    // shader
+    Chunk chunk;
+    ChunkMeshGenerator chunkGenerator;
+    chunkGenerator.mesh(chunk);
 
     TextureAtlas textureAtlas("../res/textures/texture-atlas-old.png");
     Shader shader(
@@ -81,7 +80,7 @@ int main() {
 
     // setting up 3D
     glm::mat4 model = glm::mat4(1.f);
-    model = glm::translate(model, block.getPosition());
+    model = glm::translate(model, chunk.getPosition());
     const auto& view = player.getCamera().getView();
     const auto& projection = player.getCamera().getProjection();
 
@@ -92,6 +91,7 @@ int main() {
     // render loop
     // -----------
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
     while (!glfwWindowShouldClose(window))
     {
         DeltaTime::newFrame(static_cast<float>(glfwGetTime()));
@@ -103,10 +103,10 @@ int main() {
         GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
         shader.bind();
-        // vao.bind();
 
-        block.bind();
-        GLCall(glDrawElements(GL_TRIANGLES, block_data::indices.size(), GL_UNSIGNED_INT, nullptr));
+        chunk.bind();
+        // block.bind();
+        GLCall(glDrawElements(GL_TRIANGLES, chunk.getIndexCount(), GL_UNSIGNED_INT, nullptr));
         shader.setUniformMat4f("u_View", player.getCamera().getView());
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

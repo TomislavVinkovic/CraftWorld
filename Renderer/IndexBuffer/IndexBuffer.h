@@ -12,16 +12,18 @@ private:
     std::vector<unsigned int> data{};
     unsigned int m_IBO;
 
+    void pushData() const;
+
 public:
     IndexBuffer();
-    IndexBuffer(const std::vector<unsigned int>& data);
+    explicit IndexBuffer(const std::vector<unsigned int>& data);
     ~IndexBuffer();
 
     void addVec2(const glm::vec3& vec);
     void addVec3(const glm::vec3& vec);
     void addVec4(const glm::vec3& vec);
 
-    void pushData() const;
+    void setData(const std::vector<unsigned int>& indices); //
     void bind() const;
     void unbind() const;
 

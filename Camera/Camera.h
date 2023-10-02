@@ -26,7 +26,7 @@ class Camera {
         glm::mat4 projection;
 
     public:
-        Camera(int screenWidth, int screenHeight, float fov, float nearPlane, float farPlane, const glm::vec3& position = {0.f, 2.f, 3.f});
+        Camera(int screenWidth, int screenHeight, float fov, float nearPlane, float farPlane, const glm::vec3& position = {0.f, 34.f, 5.f});
         ~Camera() = default;
 
         // setters

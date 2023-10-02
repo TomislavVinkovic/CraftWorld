@@ -14,7 +14,6 @@ IndexBuffer::~IndexBuffer() {
 }
 
 void IndexBuffer::addVec2(const glm::vec3 &vec) {
-
     data.insert(data.end(), { static_cast<unsigned int>(vec[0]), static_cast<unsigned int>(vec[1]) });
 }
 
@@ -24,6 +23,11 @@ void IndexBuffer::addVec3(const glm::vec3 &vec) {
 
 void IndexBuffer::addVec4(const glm::vec3 &vec) {
     data.insert(data.end(), { static_cast<unsigned int>(vec[0]), static_cast<unsigned int>(vec[1]), static_cast<unsigned int>(vec[2]), static_cast<unsigned int>(vec[3]) });
+}
+
+void IndexBuffer::setData(const std::vector<unsigned int>& indices) {
+    data = indices;
+    pushData();
 }
 
 void IndexBuffer::pushData() const {

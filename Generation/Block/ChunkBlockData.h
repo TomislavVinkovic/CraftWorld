@@ -29,8 +29,8 @@ enum class ChunkBlockType :  Block_t
 
 struct ChunkBlockData {
 
-    ChunkBlockData(ChunkBlockType type, const std::string& name, bool breakable = true)
-            : name(name), blockType(type), breakable(breakable){}
+    ChunkBlockData(ChunkBlockType type, const std::string& name, bool isBreakable = true, bool isSolid = true)
+            : name(name), blockType(type), isBreakable(isBreakable), isSolid(isSolid){}
     ChunkBlockData(
             ChunkBlockType type,
             const std::string& name,
@@ -46,14 +46,89 @@ struct ChunkBlockData {
             const glm::vec2& frontFaceTextureMax,
             const glm::vec2& backFaceTextureMin,
             const glm::vec2& backFaceTextureMax,
-            bool breakable = true
+            bool isBreakable = true,
+            bool isSolid = true
     ) : blockType(type), name(name), topFaceTextureMax(topFaceTextureMax / 256.f), topFaceTextureMin(topFaceTextureMin / 256.f),
         bottomFaceTextureMax(bottomFaceTextureMax / 256.f), bottomFaceTextureMin(bottomFaceTextureMin / 256.f),
         leftFaceTextureMax(leftFaceTextureMax / 256.f), leftFaceTextureMin(leftFaceTextureMin / 256.f),
         rightFaceTextureMax(rightFaceTextureMax / 256.f), rightFaceTextureMin(rightFaceTextureMin / 256.f),
         frontFaceTextureMax(frontFaceTextureMax / 256.f), frontFaceTextureMin(frontFaceTextureMin / 256.f),
-        backFaceTextureMax(backFaceTextureMax / 256.f), backFaceTextureMin(backFaceTextureMin / 256.f), breakable(breakable){}
+        backFaceTextureMax(backFaceTextureMax / 256.f), backFaceTextureMin(backFaceTextureMin / 256.f),
+        isBreakable(isBreakable), isSolid(isSolid) {
 
+        frontFaceTexCoords = {
+                this->frontFaceTextureMin.x,
+                this->frontFaceTextureMin.y,
+                this->frontFaceTextureMax.x,
+                this->frontFaceTextureMin.y,
+                this->frontFaceTextureMax.x,
+                this->frontFaceTextureMax.y,
+                this->frontFaceTextureMin.x,
+                this->frontFaceTextureMax.y
+        };
+
+        backFaceTexCoords = {
+                this->backFaceTextureMin.x,
+                this->backFaceTextureMin.y,
+                this->backFaceTextureMax.x,
+                this->backFaceTextureMin.y,
+                this->backFaceTextureMax.x,
+                this->backFaceTextureMax.y,
+                this->backFaceTextureMin.x,
+                this->backFaceTextureMax.y
+        };
+
+        leftFaceTexCoords = {
+                this->leftFaceTextureMin.x,
+                this->leftFaceTextureMin.y,
+                this->leftFaceTextureMax.x,
+                this->leftFaceTextureMin.y,
+                this->leftFaceTextureMax.x,
+                this->leftFaceTextureMax.y,
+                this->leftFaceTextureMin.x,
+                this->leftFaceTextureMax.y
+        };
+
+        rightFaceTexCoords = {
+                this->rightFaceTextureMin.x,
+                this->rightFaceTextureMin.y,
+                this->rightFaceTextureMax.x,
+                this->rightFaceTextureMin.y,
+                this->rightFaceTextureMax.x,
+                this->rightFaceTextureMax.y,
+                this->rightFaceTextureMin.x,
+                this->rightFaceTextureMax.y
+        };
+
+        bottomFaceTexCoords = {
+                this->bottomFaceTextureMin.x,
+                this->bottomFaceTextureMin.y,
+                this->bottomFaceTextureMax.x,
+                this->bottomFaceTextureMin.y,
+                this->bottomFaceTextureMax.x,
+                this->bottomFaceTextureMax.y,
+                this->bottomFaceTextureMin.x,
+                this->bottomFaceTextureMax.y
+        };
+
+        topFaceTexCoords = {
+                this->topFaceTextureMin.x,
+                this->topFaceTextureMin.y,
+                this->topFaceTextureMax.x,
+                this->topFaceTextureMin.y,
+                this->topFaceTextureMax.x,
+                this->topFaceTextureMax.y,
+                this->topFaceTextureMin.x,
+                this->topFaceTextureMax.y
+        };
+    }
+
+    std::vector<float> frontFaceTexCoords;
+    std::vector<float> backFaceTexCoords;
+    std::vector<float> leftFaceTexCoords;
+    std::vector<float> rightFaceTexCoords;
+    std::vector<float> bottomFaceTexCoords;
+    std::vector<float> topFaceTexCoords;
 
     ChunkBlockType blockType{ChunkBlockType::Air};
     std::string name;
@@ -69,7 +144,8 @@ struct ChunkBlockData {
     glm::vec2 frontFaceTextureMax{-1,-1};
     glm::vec2 backFaceTextureMin{-1,-1};
     glm::vec2 backFaceTextureMax{-1,-1};
-    bool breakable = true;
+    bool isBreakable = true;
+    bool isSolid = true;
 };
 
 namespace block_data {
@@ -83,7 +159,7 @@ namespace block_data {
 }
 
 namespace block_type_data {
-    const ChunkBlockData AirBlock= ChunkBlockData(ChunkBlockType::Air, "Air", false);
+    const ChunkBlockData AirBlock= ChunkBlockData(ChunkBlockType::Air, "Air", false, false);
 
     const ChunkBlockData GrassBlock = ChunkBlockData(
             ChunkBlockType::Grass, "Grass", {0,240}, {16, 256},
@@ -154,6 +230,7 @@ namespace block_type_data {
             {128,240}, {144,256},
             {128,240}, {144,256},
             {128,240}, {144,256},
+            false,
             false
     );
     const ChunkBlockData ShrugBlock = ChunkBlockData(

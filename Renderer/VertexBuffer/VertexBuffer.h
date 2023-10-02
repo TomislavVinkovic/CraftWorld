@@ -12,16 +12,18 @@ class VertexBuffer {
         std::vector<float> data{};
         unsigned int m_VBO;
 
+        void pushData() const;
     public:
         VertexBuffer();
-        VertexBuffer(const std::vector<float>& data);
+        explicit VertexBuffer(const std::vector<float>& data);
         ~VertexBuffer();
 
         void addVec2(const glm::vec3& vec);
         void addVec3(const glm::vec3& vec);
         void addVec4(const glm::vec3& vec);
 
-        void pushData() const;
+        void setData(const std::vector<float>& vertices);
+
         void bind() const;
         void unbind() const;
 

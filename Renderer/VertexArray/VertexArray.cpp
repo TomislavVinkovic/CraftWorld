@@ -13,7 +13,6 @@ VertexArray::VertexArray(
 }
 
 VertexArray::~VertexArray() {
-    std::cout << m_VAO << std::endl;
     GLCall(glDeleteVertexArrays(1, &m_VAO));
 }
 
