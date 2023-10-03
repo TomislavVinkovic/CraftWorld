@@ -3,6 +3,9 @@
 #include "ChunkMesh/ChunkMesh.h"
 #include "Chunk/Chunk.h"
 
+/*
+ * This class is used to generate a mesh for a chunk once its terrain has been generated
+ */
 class ChunkMeshGenerator {
     public:
         ChunkMeshGenerator() = default;

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.26)
 project(CraftWorld)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 include_directories(src vendor vendor/glad GLDebug Renderer Player Camera Util Generation Mesh Model)
 
@@ -44,8 +44,12 @@ set(SOURCE_FILES
         Generation/AdjacentChunkBlockPositions.h
         Generation/ChunkMeshGenerator/ChunkMeshGenerator.cpp
         Generation/ChunkMeshGenerator/ChunkMeshGenerator.h
-        Util/Singleton/Singleton.h
+        World/World.cpp
+        World/World.h
+        Generation/ChunkGenerator/ChunkGenerator.cpp
+        Generation/ChunkGenerator/ChunkGenerator.h
+        Generation/ChunkGenerator/ChunkGenerator.cpp
 )
 
 add_executable(CraftWorld ${SOURCE_FILES})
-target_link_libraries(CraftWorld glfw3 wayland-client m GL GLU)
+target_link_libraries(CraftWorld glfw3 wayland-client m GL GLU fmt)

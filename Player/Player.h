@@ -7,7 +7,7 @@ class Player {
     private:
         Camera camera;
 
-        float movementSpeed = 2.5f;
+        float movementSpeed = 10.f;
 
     public:
         Player(Camera camera);
@@ -28,5 +28,6 @@ class Player {
         void updatePosition();
 
         // getters
-        const Camera& getCamera() { return camera; }
+        const Camera& getCamera() const { return camera; }
+        const glm::vec3& getPosition() { return camera.getPosition(); }
 };

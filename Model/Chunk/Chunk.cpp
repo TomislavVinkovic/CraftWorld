@@ -1,11 +1,21 @@
 #include "Chunk.h"
 
 Chunk::Chunk(glm::vec3 position): position(position) {
+    std::srand(static_cast<unsigned int>(time(nullptr)));
+
+    // Define the range
+    int min = 0;
+    int max = 12;
+    int type = std::rand() % (max - min + 1) + min;
     // pushing back 32^3 blocks
     int z, x, y;
     for(int i = 0; i < pow(chunkSize, 3); i++) {
-        blocks.push_back(ChunkBlock(ChunkBlockType::Grass));
+        blocks.push_back(ChunkBlock(static_cast<ChunkBlockType>(type)));
     }
+}
+
+void Chunk::addBlock(ChunkBlockType type) {
+    blocks.push_back(ChunkBlock(type));
 }
 
 void Chunk::mesh(ChunkMeshData data) {
@@ -17,11 +27,11 @@ void Chunk::mesh(ChunkMeshData data) {
     m_ChunkMesh.setVertices(data.vertices);
 }
 
-void Chunk::bind() {
+void Chunk::bind() const {
     m_ChunkMesh.bind();
 }
 
-void Chunk::unbind() {
+void Chunk::unbind() const {
     m_ChunkMesh.unbind();
 }
 

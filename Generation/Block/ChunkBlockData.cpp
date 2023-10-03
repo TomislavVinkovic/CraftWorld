@@ -13,9 +13,9 @@ namespace block_type_data {
         if(blockType == ChunkBlockType::Cobblestone) {
             return CobblestoneBlock;
         }
-        if(blockType == ChunkBlockType::Water) {
-            return WaterBlock;
-        }
+//        if(blockType == ChunkBlockType::Water) {
+//            return WaterBlock;
+//        }
         if(blockType == ChunkBlockType::Wood) {
             return WoodBlock;
         }

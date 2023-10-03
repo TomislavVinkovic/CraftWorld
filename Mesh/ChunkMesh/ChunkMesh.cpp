@@ -19,11 +19,11 @@ void ChunkMesh::setVertices(const std::vector<float>& vertices) {
     m_Vbo.setData(vertices);
 }
 
-void ChunkMesh::bind() {
+void ChunkMesh::bind() const {
     m_Vao.bind();
     m_Ibo.bind();
 }
 
-void ChunkMesh::unbind() {
+void ChunkMesh::unbind() const {
     m_Vao.unbind();
 }

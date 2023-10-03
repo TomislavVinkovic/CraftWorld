@@ -17,7 +17,7 @@ enum class ChunkBlockType :  Block_t
     Cobblestone,
     Sand,
     Wood,
-    Water,
+    // Water,
     Cactus,
     Bush,
     Shrug,
@@ -222,17 +222,17 @@ namespace block_type_data {
             {96,240}, {112,256},
             {96,240}, {112,256}
     );
-    const ChunkBlockData WaterBlock = ChunkBlockData(
-            ChunkBlockType::Water, "Water",
-            {128,240}, {144,256},
-            {128,240}, {144,256},
-            {128,240}, {144,256},
-            {128,240}, {144,256},
-            {128,240}, {144,256},
-            {128,240}, {144,256},
-            false,
-            false
-    );
+//    const ChunkBlockData WaterBlock = ChunkBlockData(
+//            ChunkBlockType::Water, "Water",
+//            {128,240}, {144,256},
+//            {128,240}, {144,256},
+//            {128,240}, {144,256},
+//            {128,240}, {144,256},
+//            {128,240}, {144,256},
+//            {128,240}, {144,256},
+//            false,
+//            false
+//    );
     const ChunkBlockData ShrugBlock = ChunkBlockData(
             ChunkBlockType::Shrug, "Shrug",
             {0,224}, {16, 240},

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <cmath>
+#include <cstdlib>
 
 #include "ChunkBlock/ChunkBlock.h"
 #include "ChunkMesh/ChunkMesh.h"
@@ -16,7 +17,7 @@ class Chunk {
         glm::vec3 position;
 
     public:
-        const int chunkSize = 32;
+        const static int chunkSize = 32;
 
         Chunk(glm::vec3 position = glm::vec3(0.f, 0.f, 0.f));
 
@@ -26,13 +27,20 @@ class Chunk {
 
         unsigned int getIndexCount() const { return m_ChunkMesh.getIndices().size(); }
         unsigned int getVertexCount() const { return m_ChunkMesh.getVertices().size(); }
+        const ChunkMesh& getMesh() const { return m_ChunkMesh; }
+        bool getIsMeshed() const { return isMeshed; }
 
         ChunkBlock getBlockAtPosition(const glm::vec3& blockPosition) const;
         glm::vec3 getBlockPositionFromIndex(int i) const;
 
         // setters
+        const inline glm::vec3& setPosition(glm::vec3 position) {
+            this->position = position;
+            return this->position;
+        }
         void mesh(ChunkMeshData data);
+        void addBlock(ChunkBlockType type);
 
-        void bind();
-        void unbind();
+        void bind() const;
+        void unbind() const;
 };

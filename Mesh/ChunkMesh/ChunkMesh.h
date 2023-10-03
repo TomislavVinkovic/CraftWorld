@@ -34,6 +34,8 @@ class ChunkMesh {
         const std::vector<unsigned int>& getIndices() const { return m_Ibo.getData(); }
         const std::vector<float>& getVertices() const { return m_Vbo.getData(); }
 
-        void bind();
-        void unbind();
+        const VertexArray& getVao() const { return m_Vao; }
+
+        void bind() const;
+        void unbind() const;
 };

@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
@@ -15,6 +14,7 @@
 #include "Texture/TextureAtlas.h"
 #include "Chunk/Chunk.h"
 #include "ChunkMeshGenerator/ChunkMeshGenerator.h"
+#include "World/World.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_pos_callback(GLFWwindow* window, double xPosIn, double yPosIn);
@@ -24,7 +24,9 @@ void processInput(GLFWwindow* window);
 int SCR_WIDTH = 1280;
 int SCR_HEIGHT = 720;
 
-Player player(Camera(SCR_WIDTH, SCR_HEIGHT, 45.f, 0.1f, 100.f));
+
+Camera camera(SCR_WIDTH, SCR_HEIGHT, 45.f, 0.1f, 100.f);
+World world(camera);
 
 bool glLine = false;
 int main() {
@@ -63,11 +65,6 @@ int main() {
         return -1;
     }
 
-
-    Chunk chunk;
-    ChunkMeshGenerator chunkGenerator;
-    chunkGenerator.mesh(chunk);
-
     TextureAtlas textureAtlas("../res/textures/texture-atlas-old.png");
     Shader shader(
         "../res/shaders/basic.vert",
@@ -80,9 +77,8 @@ int main() {
 
     // setting up 3D
     glm::mat4 model = glm::mat4(1.f);
-    model = glm::translate(model, chunk.getPosition());
-    const auto& view = player.getCamera().getView();
-    const auto& projection = player.getCamera().getProjection();
+    const auto& view = world.getPlayer().getCamera().getView();
+    const auto& projection = world.getPlayer().getCamera().getProjection();
 
     shader.setUniformMat4f("u_Model", model);
     shader.setUniformMat4f("u_View", view);
@@ -96,7 +92,8 @@ int main() {
     {
         DeltaTime::newFrame(static_cast<float>(glfwGetTime()));
         processInput(window);
-        player.updatePosition();
+        world.cycle();
+        // player.updatePosition();
         // render
         // ------
         GLCall(glClearColor(0.f, .5f, 1.f, 1.f));
@@ -104,10 +101,12 @@ int main() {
 
         shader.bind();
 
-        chunk.bind();
+        for(const auto& [key, chunk]: world.getChunks()) {
+            chunk.bind();
+            GLCall(glDrawElements(GL_TRIANGLES, chunk.getIndexCount(), GL_UNSIGNED_INT, nullptr));
+        }
         // block.bind();
-        GLCall(glDrawElements(GL_TRIANGLES, chunk.getIndexCount(), GL_UNSIGNED_INT, nullptr));
-        shader.setUniformMat4f("u_View", player.getCamera().getView());
+        shader.setUniformMat4f("u_View", world.getPlayer().getCamera().getView());
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -129,21 +128,21 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 void processInput(GLFWwindow* window) {
     // processing keyboard inputs for player movement
     if(glfwGetKey(window, GLFW_KEY_W)) {
-        player.moveForward();
+        world.getPlayer().moveForward();
     }
     if(glfwGetKey(window, GLFW_KEY_S)) {
-        player.moveBackward();
+        world.getPlayer().moveBackward();
     }
     if(glfwGetKey(window, GLFW_KEY_A)) {
-        player.moveLeft();
+        world.getPlayer().moveLeft();
     }
     if(glfwGetKey(window, GLFW_KEY_D)) {
-        player.moveRight();
+        world.getPlayer().moveRight();
     }
 }
 
 void mouse_pos_callback(GLFWwindow* window, double xPosIn, double yPosIn) {
-    player.lookAt(
+    world.getPlayer().lookAt(
         static_cast<float>(xPosIn),
         static_cast<float>(yPosIn)
     );
