@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "glm/glm.hpp"
 
 struct AdjacentChunkPositions{
@@ -26,4 +27,10 @@ struct AdjacentChunkPositions{
     glm::vec3 back;
     glm::vec3 backLeft;
     glm::vec3 backRight;
+
+    inline std::vector<glm::vec3> getPositions() const {
+        return {
+            top, bottom, left, right, front, back, frontLeft, frontRight, backLeft, backRight
+        };
+    }
 };

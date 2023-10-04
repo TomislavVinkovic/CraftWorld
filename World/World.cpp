@@ -65,12 +65,16 @@ void World::cycle() {
         for(auto& key: chunksToDelete) {
             m_Chunks.erase(key);
         }
-
+        chunkMeshGenerator.setWorldChunks(m_Chunks);
         // mesh all chunks that are not meshed
         for(auto& [key, chunk]: m_Chunks) {
             if(!chunk.getIsMeshed()) {
                 chunkMeshGenerator.mesh(chunk);
             }
         }
+        for(auto& iter: chunkMeshGenerator.getToRemeshTable()) {
+            chunkMeshGenerator.mesh(iter.second->second, false);
+        }
+        chunkMeshGenerator.clearToRemeshTable();
     }
 }

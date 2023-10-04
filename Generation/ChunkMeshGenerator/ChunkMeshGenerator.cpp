@@ -3,8 +3,11 @@
 #include "ChunkMeshGenerator.h"
 #include "Block/ChunkBlockData.h"
 #include "AdjacentChunkBlockPositions.h"
+#include "AdjacentChunkPositions.h"
 
-void ChunkMeshGenerator::mesh(Chunk &chunk) const {
+#include "fmt/core.h"
+
+void ChunkMeshGenerator::mesh(Chunk &chunk, bool remeshNeighboringChunks) {
     unsigned int currentVIndex = 0;
 
     // I will pass these vector objects to the faces generator by refference
@@ -13,6 +16,21 @@ void ChunkMeshGenerator::mesh(Chunk &chunk) const {
     const auto& blocks = chunk.getBlocks();
     const auto& chunkPosition = chunk.getPosition();
     AdjacentChunkBlockPositions adjacentChunkBlockPositions;
+    AdjacentChunkPositions adjacentChunkPositions;
+
+    adjacentChunkPositions.update(
+            chunkPosition.x, chunkPosition.y, chunkPosition.z
+    );
+    if(remeshNeighboringChunks) {
+        for(auto& pos: adjacentChunkPositions.getPositions()) {
+            std::string posKey = fmt::format("{} {} {}", pos.x, pos.y, pos.z);
+            auto chunkIter = m_WorldChunks->find(posKey);
+            if(chunkIter != m_WorldChunks->end() && toRemesh.find(posKey) == toRemesh.end()) {
+                toRemesh[posKey] = chunkIter;
+            }
+        }
+    }
+
 
     for(int i = 0; i < blocks.size(); i++) {
         const auto& chunkBlock = blocks[i];
@@ -36,6 +54,7 @@ void ChunkMeshGenerator::mesh(Chunk &chunk) const {
             meshData.vertices,
             meshData.indices,
             adjacentChunkBlockPositions.back,
+            adjacentChunkPositions.back,
             block_data::backFace,
             chunkBlockData.backFaceTexCoords,
             currentVIndex
@@ -49,6 +68,7 @@ void ChunkMeshGenerator::mesh(Chunk &chunk) const {
             meshData.vertices,
             meshData.indices,
             adjacentChunkBlockPositions.front,
+            adjacentChunkPositions.front,
             block_data::frontFace,
             chunkBlockData.frontFaceTexCoords,
             currentVIndex
@@ -62,6 +82,7 @@ void ChunkMeshGenerator::mesh(Chunk &chunk) const {
             meshData.vertices,
             meshData.indices,
             adjacentChunkBlockPositions.right,
+            adjacentChunkPositions.right,
             block_data::rightFace,
             chunkBlockData.rightFaceTexCoords,
             currentVIndex
@@ -75,6 +96,7 @@ void ChunkMeshGenerator::mesh(Chunk &chunk) const {
             meshData.vertices,
             meshData.indices,
             adjacentChunkBlockPositions.left,
+            adjacentChunkPositions.left,
             block_data::leftFace,
             chunkBlockData.leftFaceTexCoords,
             currentVIndex
@@ -88,6 +110,7 @@ void ChunkMeshGenerator::mesh(Chunk &chunk) const {
             meshData.vertices,
             meshData.indices,
             adjacentChunkBlockPositions.top,
+            adjacentChunkPositions.top,
             block_data::topFace,
             chunkBlockData.topFaceTexCoords,
             currentVIndex
@@ -101,6 +124,7 @@ void ChunkMeshGenerator::mesh(Chunk &chunk) const {
             meshData.vertices,
             meshData.indices,
             adjacentChunkBlockPositions.bottom,
+            adjacentChunkPositions.bottom,
             block_data::bottomFace,
             chunkBlockData.bottomFaceTexCoords,
             currentVIndex
@@ -117,31 +141,51 @@ void ChunkMeshGenerator::addFace(
         std::vector<float>& vertices,
         std::vector<unsigned int>& indices,
         const glm::vec3& adjacentBlockPosition,
+        const glm::vec3& adjacentChunkPosition,
         const std::vector<float>& faceVertices,
         const std::vector<float>& texCoords,
         unsigned int& currentVIndex
-) const {
+) {
     const auto& neighbouringBlock = chunk.getBlockAtPosition(adjacentBlockPosition);
-    
+    const auto& chunkPosition = chunk.getPosition();
     // if the neighbouring block is not solid, then add the face to the mesh
     const auto& blockData = block_type_data::getBlockDataByType(neighbouringBlock.getType());
-    if(!blockData.isSolid) {
-        for(int i = 0, j = 0, k = 0; i < 4; i++) {
-            // block position data
-            vertices.push_back(faceVertices[j++] + blockPosition.x);
-            vertices.push_back(faceVertices[j++] + blockPosition.y);
-            vertices.push_back(faceVertices[j++] + blockPosition.z);
 
-            // block texture coordinates data
-            vertices.push_back(texCoords[k++]); // s
-            vertices.push_back(texCoords[k++]); // t
+    bool isNeighboringBlockSolid = blockData.isSolid;
+    if(!isNeighboringBlockSolid) {
+        // if the neighbouring block is an air block, but the block is
+        // at an edge of a chunk, check the block in the neighbouring chunk
+        std::string key = fmt::format(
+                "{} {} {}",
+                adjacentChunkPosition.x,
+                adjacentChunkPosition.y,
+                adjacentChunkPosition.z
+        );
+        auto neighbouringChunkIter = m_WorldChunks->find(key);
+        if(neighbouringChunkIter != m_WorldChunks->end()) {
+            auto neighbouringChunkBlock = neighbouringChunkIter->second.getBlockAtPosition(adjacentBlockPosition);
+            auto& neighbouringChunkBlockData = block_type_data::getBlockDataByType(neighbouringChunkBlock.getType());
+            isNeighboringBlockSolid = neighbouringChunkBlockData.isSolid;
         }
 
-        // indices for the 2 added triangles
-        indices.insert(indices.end(), {
-                currentVIndex, currentVIndex + 1, currentVIndex + 2,
-                currentVIndex + 2, currentVIndex + 3, currentVIndex,
-        });
-        currentVIndex += 4;
+        if(!isNeighboringBlockSolid) {
+            for(int i = 0, j = 0, k = 0; i < 4; i++) {
+                // block position data
+                vertices.push_back(faceVertices[j++] + blockPosition.x);
+                vertices.push_back(faceVertices[j++] + blockPosition.y);
+                vertices.push_back(faceVertices[j++] + blockPosition.z);
+
+                // block texture coordinates data
+                vertices.push_back(texCoords[k++]); // s
+                vertices.push_back(texCoords[k++]); // t
+            }
+
+            // indices for the 2 added triangles
+            indices.insert(indices.end(), {
+                    currentVIndex, currentVIndex + 1, currentVIndex + 2,
+                    currentVIndex + 2, currentVIndex + 3, currentVIndex,
+            });
+            currentVIndex += 4;
+        }
     }
 }
