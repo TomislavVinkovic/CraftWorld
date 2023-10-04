@@ -102,8 +102,8 @@ int main() {
         shader.bind();
 
         for(const auto& [key, chunk]: world.getChunks()) {
-            chunk.bind();
-            GLCall(glDrawElements(GL_TRIANGLES, chunk.getIndexCount(), GL_UNSIGNED_INT, nullptr));
+            chunk->bind();
+            GLCall(glDrawElements(GL_TRIANGLES, chunk->getIndexCount(), GL_UNSIGNED_INT, nullptr));
         }
         // block.bind();
         shader.setUniformMat4f("u_View", world.getPlayer().getCamera().getView());

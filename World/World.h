@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <string>
 #include <cmath>
+#include <memory>
 
 class World {
     private:
@@ -21,7 +22,7 @@ class World {
         ChunkMeshGenerator chunkMeshGenerator;
         ChunkGenerator chunkGenerator;
 
-        std::unordered_map<std::string, Chunk> m_Chunks;
+        std::unordered_map<std::string, std::shared_ptr<Chunk>> m_Chunks;
 
     public:
         World(const Camera& camera);
@@ -33,5 +34,5 @@ class World {
 
         // getters
         Player& getPlayer() { return player; }
-        const std::unordered_map<std::string, Chunk>& getChunks() const { return m_Chunks; }
+        const std::unordered_map<std::string, std::shared_ptr<Chunk>>& getChunks() const { return m_Chunks; }
 };

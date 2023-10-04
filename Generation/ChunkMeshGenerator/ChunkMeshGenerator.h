@@ -4,20 +4,22 @@
 #include "Chunk/Chunk.h"
 
 #include <unordered_map>
+#include <memory>
 
 /*
  * This class is used to generate a mesh for a chunk once its terrain has been generated
  */
 class ChunkMeshGenerator {
     private:
-        std::unordered_map<std::string, Chunk>* m_WorldChunks = nullptr;
-        std::unordered_map<std::string, std::unordered_map<std::string, Chunk>::iterator> toRemesh;
+        std::unordered_map<std::string, std::shared_ptr<Chunk>>& m_WorldChunks;
+        std::unordered_map<std::string, std::shared_ptr<Chunk>> toRemesh;
     public:
-        ChunkMeshGenerator() = default;
+        inline ChunkMeshGenerator(std::unordered_map<std::string, std::shared_ptr<Chunk>>& worldChunks)
+            : m_WorldChunks(worldChunks){}
 
-        void mesh(Chunk& chunk, bool remeshNeighboringChunks = true);
+        void mesh(std::shared_ptr<Chunk> chunk, bool remeshNeighboringChunks = true);
         void addFace(
-                Chunk& chunk,
+                std::shared_ptr<Chunk> chunk,
                 const ChunkBlock& block,
                 const glm::vec3& blockPosition,
                 std::vector<float>& vertices,
@@ -29,7 +31,7 @@ class ChunkMeshGenerator {
                 unsigned int& currentVIndex
         );
 
-        void setWorldChunks(std::unordered_map<std::string, Chunk>& worldChunks) { this->m_WorldChunks = &worldChunks; }
-        inline const std::unordered_map<std::string, std::unordered_map<std::string, Chunk>::iterator>& getToRemeshTable() const { return toRemesh; };
+        void setWorldChunks(std::unordered_map<std::string, std::shared_ptr<Chunk>>& worldChunks) { this->m_WorldChunks = worldChunks; }
+        inline const std::unordered_map<std::string, std::shared_ptr<Chunk>>& getToRemeshTable() const { return toRemesh; };
         inline const std::unordered_map<std::string, std::unordered_map<std::string, Chunk>::iterator>& clearToRemeshTable() { toRemesh = {}; };
 };

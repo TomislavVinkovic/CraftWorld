@@ -7,14 +7,14 @@
 
 #include "fmt/core.h"
 
-void ChunkMeshGenerator::mesh(Chunk &chunk, bool remeshNeighboringChunks) {
+void ChunkMeshGenerator::mesh(std::shared_ptr<Chunk> chunk, bool remeshNeighboringChunks) {
     unsigned int currentVIndex = 0;
 
     // I will pass these vector objects to the faces generator by refference
     ChunkMeshData meshData;
 
-    const auto& blocks = chunk.getBlocks();
-    const auto& chunkPosition = chunk.getPosition();
+    const auto& blocks = chunk->getBlocks();
+    const auto& chunkPosition = chunk->getPosition();
     AdjacentChunkBlockPositions adjacentChunkBlockPositions;
     AdjacentChunkPositions adjacentChunkPositions;
 
@@ -24,9 +24,9 @@ void ChunkMeshGenerator::mesh(Chunk &chunk, bool remeshNeighboringChunks) {
     if(remeshNeighboringChunks) {
         for(auto& pos: adjacentChunkPositions.getPositions()) {
             std::string posKey = fmt::format("{} {} {}", pos.x, pos.y, pos.z);
-            auto chunkIter = m_WorldChunks->find(posKey);
-            if(chunkIter != m_WorldChunks->end() && toRemesh.find(posKey) == toRemesh.end()) {
-                toRemesh[posKey] = chunkIter;
+            auto chunkIter = m_WorldChunks.find(posKey);
+            if(chunkIter != m_WorldChunks.end() && toRemesh.find(posKey) == toRemesh.end()) {
+                toRemesh[posKey] = chunkIter->second;
             }
         }
     }
@@ -39,7 +39,7 @@ void ChunkMeshGenerator::mesh(Chunk &chunk, bool remeshNeighboringChunks) {
         if(chunkBlock.getType() == ChunkBlockType::Air) continue;
 
         // get the block postion and update the neighbouring positions accordingly
-        const auto blockPosition = chunk.getBlockPositionFromIndex(i);
+        const auto blockPosition = chunk->getBlockPositionFromIndex(i);
         adjacentChunkBlockPositions.update(
                 static_cast<int>(blockPosition.x),
                 static_cast<int>(blockPosition.y),
@@ -131,11 +131,11 @@ void ChunkMeshGenerator::mesh(Chunk &chunk, bool remeshNeighboringChunks) {
         );
     }
 
-    chunk.mesh(meshData);
+    chunk->mesh(meshData);
 }
 
 void ChunkMeshGenerator::addFace(
-        Chunk& chunk,
+        std::shared_ptr<Chunk> chunk,
         const ChunkBlock& block,
         const glm::vec3& blockPosition,
         std::vector<float>& vertices,
@@ -146,8 +146,8 @@ void ChunkMeshGenerator::addFace(
         const std::vector<float>& texCoords,
         unsigned int& currentVIndex
 ) {
-    const auto& neighbouringBlock = chunk.getBlockAtPosition(adjacentBlockPosition);
-    const auto& chunkPosition = chunk.getPosition();
+    const auto& neighbouringBlock = chunk->getBlockAtPosition(adjacentBlockPosition);
+    const auto& chunkPosition = chunk->getPosition();
     // if the neighbouring block is not solid, then add the face to the mesh
     const auto& blockData = block_type_data::getBlockDataByType(neighbouringBlock.getType());
 
@@ -161,9 +161,9 @@ void ChunkMeshGenerator::addFace(
                 adjacentChunkPosition.y,
                 adjacentChunkPosition.z
         );
-        auto neighbouringChunkIter = m_WorldChunks->find(key);
-        if(neighbouringChunkIter != m_WorldChunks->end()) {
-            auto neighbouringChunkBlock = neighbouringChunkIter->second.getBlockAtPosition(adjacentBlockPosition);
+        auto neighbouringChunkIter = m_WorldChunks.find(key);
+        if(neighbouringChunkIter != m_WorldChunks.end()) {
+            auto neighbouringChunkBlock = neighbouringChunkIter->second->getBlockAtPosition(adjacentBlockPosition);
             auto& neighbouringChunkBlockData = block_type_data::getBlockDataByType(neighbouringChunkBlock.getType());
             isNeighboringBlockSolid = neighbouringChunkBlockData.isSolid;
         }

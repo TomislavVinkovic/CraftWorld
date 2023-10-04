@@ -4,7 +4,7 @@
 #include "fmt/core.h"
 
 World::World(const Camera& camera)
-: player(camera){}
+: player(camera), chunkMeshGenerator(m_Chunks){}
 
 void World::cycle() {
     player.updatePosition();
@@ -39,8 +39,8 @@ void World::cycle() {
                 std::string key = fmt::format("{} {} {}", x, chunkPosY, z);
                 auto chunkIter = m_Chunks.find(key);
                 if(chunkIter == m_Chunks.end()) {
-                    m_Chunks[key];
-                    m_Chunks[key].setPosition({x, chunkPosY, z});
+                    auto chunkPtr = std::make_shared<Chunk>(glm::vec3(x, chunkPosY, z));
+                    m_Chunks[key] = chunkPtr;
                 }
             }
         }
@@ -49,7 +49,7 @@ void World::cycle() {
         std::vector<std::string> chunksToDelete;
         // loop through all the chunks in the chunk database and see if you need to remove some of them
         for(auto& [key, chunk]: m_Chunks) {
-            auto chunkPos = chunk.getPosition();
+            auto chunkPos = chunk->getPosition();
 
             auto diffX = abs(currPlayerChunkPosX - static_cast<int>(chunkPos.x));
             auto diffZ = abs(currPlayerChunkPosZ - static_cast<int>(chunkPos.z));
@@ -68,12 +68,12 @@ void World::cycle() {
         chunkMeshGenerator.setWorldChunks(m_Chunks);
         // mesh all chunks that are not meshed
         for(auto& [key, chunk]: m_Chunks) {
-            if(!chunk.getIsMeshed()) {
+            if(!chunk->getIsMeshed()) {
                 chunkMeshGenerator.mesh(chunk);
             }
         }
         for(auto& iter: chunkMeshGenerator.getToRemeshTable()) {
-            chunkMeshGenerator.mesh(iter.second->second, false);
+            chunkMeshGenerator.mesh(iter.second, false);
         }
         chunkMeshGenerator.clearToRemeshTable();
     }
