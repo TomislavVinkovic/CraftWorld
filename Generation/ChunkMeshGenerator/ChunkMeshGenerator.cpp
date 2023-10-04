@@ -13,7 +13,6 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<Chunk> chunk, bool remeshNeighbori
     // I will pass these vector objects to the faces generator by refference
     ChunkMeshData meshData;
 
-    const auto& blocks = chunk->getBlocks();
     const auto& chunkPosition = chunk->getPosition();
     AdjacentChunkBlockPositions adjacentChunkBlockPositions;
     AdjacentChunkPositions adjacentChunkPositions;
@@ -31,106 +30,178 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<Chunk> chunk, bool remeshNeighbori
         }
     }
 
-
-    for(int i = 0; i < blocks.size(); i++) {
-        const auto& chunkBlock = blocks[i];
+    for(int i = 0; i < pow(Chunk::chunkSize, 3); i++) {
+        const auto& chunkBlock = chunk->getBlockAtPosition(chunk->getBlockPositionFromIndex(i));
         const auto& chunkBlockData = block_type_data::getBlockDataByType(chunkBlock.getType());
         // there are surely no indices to be rendered with an air block
         if(chunkBlock.getType() == ChunkBlockType::Air) continue;
 
         // get the block postion and update the neighbouring positions accordingly
         const auto blockPosition = chunk->getBlockPositionFromIndex(i);
+        const auto relativeBlockPosition = chunk->getRelativeBlockPositionFromIndex(i);
+
         adjacentChunkBlockPositions.update(
                 static_cast<int>(blockPosition.x),
                 static_cast<int>(blockPosition.y),
                 static_cast<int>(blockPosition.z)
         );
 
+        std::shared_ptr<IChunkBlockLayer>
+                layerAbove = nullptr, layerBelow = nullptr, layerFront = nullptr,
+                layerBack = nullptr, layerLeft = nullptr, layerRight = nullptr;
+
+        int layerAboveY = static_cast<int>(blockPosition.y) % 32 + 1;
+        int layerBelowY = static_cast<int>(blockPosition.y) % 32 - 1;
+        int sideLayerY = static_cast<int>(blockPosition.y) % 32;
+
+        if(layerAboveY >= 0 && layerAboveY < 32) {
+            layerAbove = chunk->getBlockLayers()[layerAboveY];
+            if(layerAbove == nullptr) {
+                auto upperChunkPos = fmt::format("{} {} {}", chunkPosition.x, chunkPosition.y + 1, chunkPosition.z);
+                auto chunkIter = m_WorldChunks.find(upperChunkPos);
+                if(chunkIter != m_WorldChunks.end()) {
+                    layerAbove = chunkIter->second->getBlockLayers()[layerAboveY];
+                }
+            }
+        }
+
+        if(layerBelowY >= 0 && layerBelowY < 32) {
+            layerBelow = chunk->getBlockLayers()[layerBelowY];
+            if(layerBelow == nullptr) {
+                auto lowerChunkPos = fmt::format("{} {} {}", chunkPosition.x, chunkPosition.y - 1, chunkPosition.z);
+                auto chunkIter = m_WorldChunks.find(lowerChunkPos);
+                if(chunkIter != m_WorldChunks.end()) {
+                    layerBelow = chunkIter->second->getBlockLayers()[layerBelowY];
+                }
+            }
+        }
+
+        if(sideLayerY >= 0 && sideLayerY < 32) {
+            auto frontChunkPos =
+                    fmt::format("{} {} {}", chunkPosition.x, chunkPosition.y, chunkPosition.z-1);
+            auto backChunkPos =
+                    fmt::format("{} {} {}", chunkPosition.x, chunkPosition.y, chunkPosition.z+1);
+            auto leftChunkPos =
+                    fmt::format("{} {} {}", chunkPosition.x - 1, chunkPosition.y, chunkPosition.z);
+            auto rightChunkPos =
+                    fmt::format("{} {} {}", chunkPosition.x + 1, chunkPosition.y, chunkPosition.z);
+
+            auto frontChunkIter = m_WorldChunks.find(frontChunkPos);
+            auto backChunkIter = m_WorldChunks.find(backChunkPos);
+            auto leftChunkIter = m_WorldChunks.find(leftChunkPos);
+            auto rightChunkIter = m_WorldChunks.find(rightChunkPos);
+
+            if(frontChunkIter != m_WorldChunks.end()) {
+                layerFront = frontChunkIter->second->getBlockLayers()[sideLayerY];
+            }
+            if(backChunkIter != m_WorldChunks.end()) {
+                layerBack = backChunkIter->second->getBlockLayers()[sideLayerY];
+            }
+            if(leftChunkIter != m_WorldChunks.end()) {
+                layerLeft = leftChunkIter->second->getBlockLayers()[sideLayerY];
+            }
+            if(rightChunkIter != m_WorldChunks.end()) {
+                layerRight = rightChunkIter->second->getBlockLayers()[sideLayerY];
+            }
+        }
+
         // back face
-        addFace(
-            chunk,
-            chunkBlock,
-            blockPosition,
-            meshData.vertices,
-            meshData.indices,
-            adjacentChunkBlockPositions.back,
-            adjacentChunkPositions.back,
-            block_data::backFace,
-            chunkBlockData.backFaceTexCoords,
-            currentVIndex
-        );
+        if(layerBack == nullptr || !layerBack->getIsSolid()) {
+            addFace(
+                chunk,
+                chunkBlock,
+                blockPosition,
+                meshData.vertices,
+                meshData.indices,
+                adjacentChunkBlockPositions.back,
+                adjacentChunkPositions.back,
+                block_data::backFace,
+                chunkBlockData.backFaceTexCoords,
+                currentVIndex
+            );
+        }
+
 
         // front face
-        addFace(
-            chunk,
-            chunkBlock,
-            blockPosition,
-            meshData.vertices,
-            meshData.indices,
-            adjacentChunkBlockPositions.front,
-            adjacentChunkPositions.front,
-            block_data::frontFace,
-            chunkBlockData.frontFaceTexCoords,
-            currentVIndex
-        );
+        if(layerFront == nullptr || !layerFront->getIsSolid()) {
+            addFace(
+                chunk,
+                chunkBlock,
+                blockPosition,
+                meshData.vertices,
+                meshData.indices,
+                adjacentChunkBlockPositions.front,
+                adjacentChunkPositions.front,
+                block_data::frontFace,
+                chunkBlockData.frontFaceTexCoords,
+                currentVIndex
+            );
+        }
 
         // right face
-        addFace(
-            chunk,
-            chunkBlock,
-            blockPosition,
-            meshData.vertices,
-            meshData.indices,
-            adjacentChunkBlockPositions.right,
-            adjacentChunkPositions.right,
-            block_data::rightFace,
-            chunkBlockData.rightFaceTexCoords,
-            currentVIndex
-        );
+        if(layerRight == nullptr || !layerRight->getIsSolid()) {
+            addFace(
+                chunk,
+                chunkBlock,
+                blockPosition,
+                meshData.vertices,
+                meshData.indices,
+                adjacentChunkBlockPositions.right,
+                adjacentChunkPositions.right,
+                block_data::rightFace,
+                chunkBlockData.rightFaceTexCoords,
+                currentVIndex
+            );
+        }
 
         // left face
-        addFace(
-            chunk,
-            chunkBlock,
-            blockPosition,
-            meshData.vertices,
-            meshData.indices,
-            adjacentChunkBlockPositions.left,
-            adjacentChunkPositions.left,
-            block_data::leftFace,
-            chunkBlockData.leftFaceTexCoords,
-            currentVIndex
-        );
+        if(layerLeft == nullptr || !layerLeft->getIsSolid()) {
+            addFace(
+                chunk,
+                chunkBlock,
+                blockPosition,
+                meshData.vertices,
+                meshData.indices,
+                adjacentChunkBlockPositions.left,
+                adjacentChunkPositions.left,
+                block_data::leftFace,
+                chunkBlockData.leftFaceTexCoords,
+                currentVIndex
+            );
+        }
 
         // top face
-        addFace(
-            chunk,
-            chunkBlock,
-            blockPosition,
-            meshData.vertices,
-            meshData.indices,
-            adjacentChunkBlockPositions.top,
-            adjacentChunkPositions.top,
-            block_data::topFace,
-            chunkBlockData.topFaceTexCoords,
-            currentVIndex
-        );
+        if(layerAbove == nullptr || !layerAbove->getIsSolid()) {
+            addFace(
+                    chunk,
+                    chunkBlock,
+                    blockPosition,
+                    meshData.vertices,
+                    meshData.indices,
+                    adjacentChunkBlockPositions.top,
+                    adjacentChunkPositions.top,
+                    block_data::topFace,
+                    chunkBlockData.topFaceTexCoords,
+                    currentVIndex
+            );
+        }
 
         // bottom face
-        addFace(
-            chunk,
-            chunkBlock,
-            blockPosition,
-            meshData.vertices,
-            meshData.indices,
-            adjacentChunkBlockPositions.bottom,
-            adjacentChunkPositions.bottom,
-            block_data::bottomFace,
-            chunkBlockData.bottomFaceTexCoords,
-            currentVIndex
-        );
+        if(layerBelow == nullptr || !layerBelow->getIsSolid()) {
+            addFace(
+                    chunk,
+                    chunkBlock,
+                    blockPosition,
+                    meshData.vertices,
+                    meshData.indices,
+                    adjacentChunkBlockPositions.bottom,
+                    adjacentChunkPositions.bottom,
+                    block_data::bottomFace,
+                    chunkBlockData.bottomFaceTexCoords,
+                    currentVIndex
+            );
+        }
     }
-
     chunk->mesh(meshData);
 }
 

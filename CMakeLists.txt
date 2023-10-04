@@ -49,6 +49,10 @@ set(SOURCE_FILES
         Generation/ChunkGenerator/ChunkGenerator.cpp
         Generation/ChunkGenerator/ChunkGenerator.h
         Generation/ChunkGenerator/ChunkGenerator.cpp
+        Model/Chunk/ChunkBlockLayer/IChunkBlockLayer.h
+        Model/Chunk/ChunkBlockLayer/ChunkBlockLayer/ChunkBlockLayer.cpp
+        Model/Chunk/ChunkBlockLayer/ChunkBlockLayer/ChunkBlockLayer.h
+        Model/Chunk/ChunkBlockLayer/SingleBlockChunkBlockLayer.h
 )
 
 add_executable(CraftWorld ${SOURCE_FILES})

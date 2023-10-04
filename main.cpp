@@ -25,7 +25,7 @@ int SCR_WIDTH = 1280;
 int SCR_HEIGHT = 720;
 
 
-Camera camera(SCR_WIDTH, SCR_HEIGHT, 45.f, 0.1f, 100.f);
+Camera camera(SCR_WIDTH, SCR_HEIGHT, 45.f, 0.1f, 1000.f);
 World world(camera);
 
 bool glLine = false;
