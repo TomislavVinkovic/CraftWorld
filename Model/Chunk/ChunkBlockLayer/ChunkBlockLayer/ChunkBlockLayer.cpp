@@ -1,5 +1,5 @@
 #include "ChunkBlockLayer.h"
-#include "Chunk/Chunk.h"
+#include "Chunk/Chunk/Chunk.h"
 
 ChunkBlockLayer::ChunkBlockLayer(std::vector<ChunkBlock> blocks, int yLevel)
 : blocks(std::move(blocks)) {

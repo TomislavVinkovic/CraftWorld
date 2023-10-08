@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Chunk/Chunk.h"
+#include "Chunk/Chunk/Chunk.h"
 
 #include <random>
+#include <memory>
 
 /*
  * This class is used to generate terrain for a practicular chunk
@@ -13,5 +14,5 @@ class ChunkGenerator {
         ChunkGenerator() = default;
         ~ChunkGenerator() = default;
 
-        void generate(Chunk& chunk);
+        std::shared_ptr<IChunk> generate(const glm::vec3& position);
 };

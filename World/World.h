@@ -10,6 +10,9 @@
 #include <cmath>
 #include <memory>
 
+#include <thread>
+#include <queue>
+
 class World {
     private:
         bool initialLoad = true;
@@ -22,9 +25,23 @@ class World {
         ChunkMeshGenerator chunkMeshGenerator;
         ChunkGenerator chunkGenerator;
 
-        std::unordered_map<std::string, std::shared_ptr<Chunk>> m_Chunks;
+        std::unordered_map<std::string, std::shared_ptr<IChunk>> m_Chunks;
+
+        // world generation and meshing threads
+
+        std::mutex toMeshMutex;
+
+        std::thread generationThread;
+        std::thread meshingThread;
+
+        std::queue<glm::vec3> toGenerate;
+        std::queue<std::shared_ptr<IChunk>> toMesh;
+
+        void generateChunks();
+        void meshChunks();
 
     public:
+    std::mutex m_ChunksMutex;
         World(const Camera& camera);
 
         /* generate chunks near to the player
@@ -34,5 +51,5 @@ class World {
 
         // getters
         Player& getPlayer() { return player; }
-        const std::unordered_map<std::string, std::shared_ptr<Chunk>>& getChunks() const { return m_Chunks; }
+        const std::unordered_map<std::string, std::shared_ptr<IChunk>>& getChunks() const { return m_Chunks; }
 };

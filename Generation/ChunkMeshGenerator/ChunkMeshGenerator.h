@@ -1,7 +1,7 @@
 # pragma once
 
 #include "ChunkMesh/ChunkMesh.h"
-#include "Chunk/Chunk.h"
+#include "Chunk/Chunk/Chunk.h"
 
 #include <unordered_map>
 #include <memory>
@@ -11,15 +11,14 @@
  */
 class ChunkMeshGenerator {
     private:
-        std::unordered_map<std::string, std::shared_ptr<Chunk>>& m_WorldChunks;
-        std::unordered_map<std::string, std::shared_ptr<Chunk>> toRemesh;
+//        std::unordered_map<std::string, std::shared_ptr<IChunk>>& m_WorldChunks;
+//        std::unordered_map<std::string, std::shared_ptr<IChunk>> toRemesh;
     public:
-        inline ChunkMeshGenerator(std::unordered_map<std::string, std::shared_ptr<Chunk>>& worldChunks)
-            : m_WorldChunks(worldChunks){}
+        ChunkMeshGenerator() = default;
 
-        void mesh(std::shared_ptr<Chunk> chunk, bool remeshNeighboringChunks = true);
+        void mesh(std::shared_ptr<IChunk> chunk, bool remeshNeighboringChunks = true);
         void addFace(
-                std::shared_ptr<Chunk> chunk,
+                std::shared_ptr<IChunk> chunk,
                 const ChunkBlock& block,
                 const glm::vec3& blockPosition,
                 std::vector<float>& vertices,
@@ -31,7 +30,7 @@ class ChunkMeshGenerator {
                 unsigned int& currentVIndex
         );
 
-        void setWorldChunks(std::unordered_map<std::string, std::shared_ptr<Chunk>>& worldChunks) { this->m_WorldChunks = worldChunks; }
-        inline const std::unordered_map<std::string, std::shared_ptr<Chunk>>& getToRemeshTable() const { return toRemesh; };
-        inline const std::unordered_map<std::string, std::unordered_map<std::string, Chunk>::iterator>& clearToRemeshTable() { toRemesh = {}; };
+        // void setWorldChunks(std::unordered_map<std::string, std::shared_ptr<IChunk>>& worldChunks) { this->m_WorldChunks = worldChunks; }
+//        inline const std::unordered_map<std::string, std::shared_ptr<IChunk>>& getToRemeshTable() const { return toRemesh; };
+//        inline const std::unordered_map<std::string, std::unordered_map<std::string, Chunk>::iterator>& clearToRemeshTable() { toRemesh = {}; };
 };

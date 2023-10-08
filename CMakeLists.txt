@@ -34,8 +34,8 @@ set(SOURCE_FILES
         Model/Block/Block.h
         Mesh/BlockMesh/BlockMesh.cpp
         Mesh/BlockMesh/BlockMesh.h
-        Model/Chunk/Chunk.cpp
-        Model/Chunk/Chunk.h
+        Model/Chunk/Chunk/Chunk.cpp
+        Model/Chunk/Chunk/Chunk.h
         Mesh/ChunkMesh/ChunkMesh.cpp
         Mesh/ChunkMesh/ChunkMesh.h
         Model/ChunkBlock/ChunkBlock.cpp
@@ -53,6 +53,10 @@ set(SOURCE_FILES
         Model/Chunk/ChunkBlockLayer/ChunkBlockLayer/ChunkBlockLayer.cpp
         Model/Chunk/ChunkBlockLayer/ChunkBlockLayer/ChunkBlockLayer.h
         Model/Chunk/ChunkBlockLayer/SingleBlockChunkBlockLayer.h
+        Model/Chunk/IChunk/IChunk.cpp
+        Model/Chunk/IChunk/IChunk.h
+        Model/Chunk/SingleBlockTypeChunk/SingleBlockTypeChunk.cpp
+        Model/Chunk/SingleBlockTypeChunk/SingleBlockTypeChunk.h
 )
 
 add_executable(CraftWorld ${SOURCE_FILES})

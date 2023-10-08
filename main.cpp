@@ -12,7 +12,7 @@
 
 #include "glm/gtc/matrix_transform.hpp"
 #include "Texture/TextureAtlas.h"
-#include "Chunk/Chunk.h"
+#include "Chunk/Chunk/Chunk.h"
 #include "ChunkMeshGenerator/ChunkMeshGenerator.h"
 #include "World/World.h"
 
@@ -101,10 +101,12 @@ int main() {
 
         shader.bind();
 
+        world.m_ChunksMutex.lock();
         for(const auto& [key, chunk]: world.getChunks()) {
             chunk->bind();
             GLCall(glDrawElements(GL_TRIANGLES, chunk->getIndexCount(), GL_UNSIGNED_INT, nullptr));
         }
+        world.m_ChunksMutex.unlock();
         // block.bind();
         shader.setUniformMat4f("u_View", world.getPlayer().getCamera().getView());
 

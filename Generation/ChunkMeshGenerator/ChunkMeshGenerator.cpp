@@ -7,7 +7,7 @@
 
 #include "fmt/core.h"
 
-void ChunkMeshGenerator::mesh(std::shared_ptr<Chunk> chunk, bool remeshNeighboringChunks) {
+void ChunkMeshGenerator::mesh(std::shared_ptr<IChunk> chunk, bool remeshNeighboringChunks) {
     unsigned int currentVIndex = 0;
 
     // I will pass these vector objects to the faces generator by refference
@@ -20,15 +20,15 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<Chunk> chunk, bool remeshNeighbori
     adjacentChunkPositions.update(
             chunkPosition.x, chunkPosition.y, chunkPosition.z
     );
-    if(remeshNeighboringChunks) {
-        for(auto& pos: adjacentChunkPositions.getPositions()) {
-            std::string posKey = fmt::format("{} {} {}", pos.x, pos.y, pos.z);
-            auto chunkIter = m_WorldChunks.find(posKey);
-            if(chunkIter != m_WorldChunks.end() && toRemesh.find(posKey) == toRemesh.end()) {
-                toRemesh[posKey] = chunkIter->second;
-            }
-        }
-    }
+//    if(remeshNeighboringChunks) {
+//        for(auto& pos: adjacentChunkPositions.getPositions()) {
+//            std::string posKey = fmt::format("{} {} {}", pos.x, pos.y, pos.z);
+//            auto chunkIter = m_WorldChunks.find(posKey);
+//            if(chunkIter != m_WorldChunks.end() && toRemesh.find(posKey) == toRemesh.end()) {
+//                toRemesh[posKey] = chunkIter->second;
+//            }
+//        }
+//    }
 
     for(int i = 0; i < pow(Chunk::chunkSize, 3); i++) {
         const auto& chunkBlock = chunk->getBlockAtPosition(chunk->getBlockPositionFromIndex(i));
@@ -140,7 +140,7 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<Chunk> chunk, bool remeshNeighbori
 }
 
 void ChunkMeshGenerator::addFace(
-        std::shared_ptr<Chunk> chunk,
+        std::shared_ptr<IChunk> chunk,
         const ChunkBlock& block,
         const glm::vec3& blockPosition,
         std::vector<float>& vertices,
@@ -166,12 +166,12 @@ void ChunkMeshGenerator::addFace(
                 adjacentChunkPosition.y,
                 adjacentChunkPosition.z
         );
-        auto neighbouringChunkIter = m_WorldChunks.find(key);
-        if(neighbouringChunkIter != m_WorldChunks.end()) {
-            auto neighbouringChunkBlock = neighbouringChunkIter->second->getBlockAtPosition(adjacentBlockPosition);
-            auto& neighbouringChunkBlockData = block_type_data::getBlockDataByType(neighbouringChunkBlock.getType());
-            isNeighboringBlockSolid = neighbouringChunkBlockData.isSolid;
-        }
+//        auto neighbouringChunkIter = m_WorldChunks.find(key);
+//        if(neighbouringChunkIter != m_WorldChunks.end()) {
+//            auto neighbouringChunkBlock = neighbouringChunkIter->second->getBlockAtPosition(adjacentBlockPosition);
+//            auto& neighbouringChunkBlockData = block_type_data::getBlockDataByType(neighbouringChunkBlock.getType());
+//            isNeighboringBlockSolid = neighbouringChunkBlockData.isSolid;
+//        }
 
         if(!isNeighboringBlockSolid) {
             for(int i = 0, j = 0, k = 0; i < 4; i++) {
