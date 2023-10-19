@@ -5,38 +5,6 @@
 
 World::World(const Camera& camera)
 : player(camera) {
-    generationThread = std::thread(&World::generateChunks, this);
-    meshingThread = std::thread(&World::meshChunks, this);
-}
-
-void World::generateChunks() {
-    while(true) {
-        while(!toGenerate.empty()) {
-            auto chunkPtr = chunkGenerator.generate(toGenerate.back());
-            toGenerate.pop();
-            toMeshMutex.lock();
-            toMesh.push(chunkPtr);
-            toMeshMutex.unlock();
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-}
-void World::meshChunks() {
-    while(true) {
-        while(!toMesh.empty()) {
-            auto chunkPtr = toMesh.back();
-            toMesh.pop();
-
-            chunkMeshGenerator.mesh(chunkPtr);
-            auto& chunkPos = chunkPtr->getPosition();
-            std::string key = fmt::format("{} {} {}", chunkPos.x, chunkPos.y, chunkPos.z);
-
-            m_ChunksMutex.lock();
-            m_Chunks[key] = chunkPtr;
-            m_ChunksMutex.unlock();
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
 }
 
 void World::cycle() {
@@ -57,31 +25,30 @@ void World::cycle() {
         currPlayerChunkPosZ = newPlayerChunkPosZ;
         // int chunkPosY = static_cast<int>(floor(playerPos.y) * 16) / 16;
 
-        int chunkPosY = 0; // hardcoded for now
-
         // loop through all the chunk positions and see if you need to add new chunks
-        int chunkSize = Chunk::chunkSize;
-        for(int x = currPlayerChunkPosX - chunkSize*chunkDistance;
-            x <= currPlayerChunkPosX + chunkSize*chunkDistance;
-            x+=chunkSize
-        ) {
-            for(int z = currPlayerChunkPosZ - chunkSize*chunkDistance;
-                z <= currPlayerChunkPosZ + chunkSize*chunkDistance;
-                z+=chunkSize
-            ) {
-                std::string key = fmt::format("{} {} {}", x, chunkPosY, z);
-                auto chunkIter = m_Chunks.find(key);
-                if(chunkIter == m_Chunks.end()) {
-                    toGenerate.push(glm::vec3(x, chunkPosY, z));
+        for(int y = chunkSize * 8; y >= 0; y -= chunkSize) {
+            for(int x = currPlayerChunkPosX - chunkSize*chunkDistance;
+                x <= currPlayerChunkPosX + chunkSize*chunkDistance;
+                x+=chunkSize
+                    ) {
+                for(int z = currPlayerChunkPosZ - chunkSize*chunkDistance;
+                    z <= currPlayerChunkPosZ + chunkSize*chunkDistance;
+                    z+=chunkSize
+                        ) {
+                    std::string key = fmt::format("{} {} {}", x, y, z);
+                    auto chunkIter = m_Chunks.find(key);
+                    if(chunkIter == m_Chunks.end()) {
+                        auto chunkPtr = chunkGenerator.generate(glm::vec3(x, y, z));
+                        m_Chunks[key] = chunkPtr;
+                    }
                 }
             }
         }
 
 
+
         std::vector<std::string> chunksToDelete;
         // loop through all the chunks in the chunk database and see if you need to remove some of them
-
-        m_ChunksMutex.lock();
         for(auto& [key, chunk]: m_Chunks) {
             auto chunkPos = chunk->getPosition();
 
@@ -95,12 +62,15 @@ void World::cycle() {
                 chunksToDelete.push_back(key);
             }
         }
-        m_ChunksMutex.unlock();
 
-        m_ChunksMutex.lock();
         for(auto& key: chunksToDelete) {
             m_Chunks.erase(key);
         }
-        m_ChunksMutex.unlock();
+        // mesh all chunks that are not meshed
+        for(auto& [key, chunk]: m_Chunks) {
+            if(!chunk->isMeshed) {
+                chunkMeshGenerator.mesh(chunk);
+            }
+        }
     }
 }

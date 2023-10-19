@@ -3,21 +3,8 @@
 #include "Chunk/ChunkBlockLayer/ChunkBlockLayer/ChunkBlockLayer.h"
 #include "Chunk/SingleBlockTypeChunk/SingleBlockTypeChunk.h"
 
-/*
-Chunk::Chunk(glm::vec3 position) {
-
-}
-*/
-
 std::shared_ptr<IChunk> ChunkGenerator::generate(const glm::vec3& position) {
     std::vector<std::shared_ptr<IChunkBlockLayer>> blockLayers;
-
-    // select a random block type for the chunk
-    std::srand(static_cast<unsigned int>(time(nullptr)));
-    // Define the range
-    int min = 0;
-    int max = 12;
-    int type = std::rand() % (max - min + 1) + min;
 
     // check if the chunk consists of a single block type
     // and if it is solid
@@ -25,14 +12,32 @@ std::shared_ptr<IChunk> ChunkGenerator::generate(const glm::vec3& position) {
     bool areBlocksSolid = true;
     bool areChunkLayersSame = true;
 
-    for(int y = 0; y < IChunk::chunkSize; y++) {
+    int walkingLevel = 100;
+    int waterLevel = 100;
+
+    for(int y = position.y; y < position.y + IChunk::chunkSize; y++) {
         std::vector<ChunkBlock> blocks;
         ChunkBlockType prevBlockType;
 
-
-
+        float freq = 0.1;
+        float amp = 10;
         for(int i = 0; i < pow(IChunk::chunkSize, 2); i++) {
-            blocks.push_back(ChunkBlock(static_cast<ChunkBlockType>(type)));
+
+            int blockPosX = position.x + (i/32);
+            int blockPosZ = position.z + (i%32);
+
+            int heightOffset = static_cast<int>(noiseGenerator.octave2D_11((blockPosX * 0.006), (blockPosZ * 0.006), 4) * 30);
+
+            int surfaceY = walkingLevel + heightOffset;
+
+            auto type = ChunkBlockType::Air;
+            if(y < surfaceY) type = ChunkBlockType::Cobblestone;
+            // else if(y < waterLevel) type = ChunkBlockType::Water;
+
+            blocks.push_back(ChunkBlock(static_cast<ChunkBlockType>( type )));
+
+
+
             if(i == 0) {
                 prevBlockType = blocks[0].getType();
             }

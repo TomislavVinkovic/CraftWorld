@@ -1,0 +1,13 @@
+Simple sin world gen:
+
+// "world generation"
+
+// i/32 is x
+// i%32 is z
+int xOffset = sin((position.x + (i/32)) * freq) * amp;
+int zOffset = sin((position.z + (i%32)) * freq) * amp;
+int surfaceY = walkingLevel + xOffset + zOffset;
+
+auto type = ChunkBlockType::Air;
+if(y < surfaceY) type = ChunkBlockType::Cobblestone;
+else if(y < waterLevel) type = ChunkBlockType::Water;

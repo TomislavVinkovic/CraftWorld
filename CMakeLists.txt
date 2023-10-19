@@ -57,6 +57,7 @@ set(SOURCE_FILES
         Model/Chunk/IChunk/IChunk.h
         Model/Chunk/SingleBlockTypeChunk/SingleBlockTypeChunk.cpp
         Model/Chunk/SingleBlockTypeChunk/SingleBlockTypeChunk.h
+        Generation/NoiseGenerator/PerlinNoise.h
 )
 
 add_executable(CraftWorld ${SOURCE_FILES})

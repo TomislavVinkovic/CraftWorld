@@ -17,9 +17,9 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<IChunk> chunk, bool remeshNeighbor
     AdjacentChunkBlockPositions adjacentChunkBlockPositions;
     AdjacentChunkPositions adjacentChunkPositions;
 
-    adjacentChunkPositions.update(
-            chunkPosition.x, chunkPosition.y, chunkPosition.z
-    );
+//    adjacentChunkPositions.update(
+//            chunkPosition.x, chunkPosition.y, chunkPosition.z
+//    );
 //    if(remeshNeighboringChunks) {
 //        for(auto& pos: adjacentChunkPositions.getPositions()) {
 //            std::string posKey = fmt::format("{} {} {}", pos.x, pos.y, pos.z);
@@ -57,6 +57,7 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<IChunk> chunk, bool remeshNeighbor
             adjacentChunkPositions.back,
             block_data::backFace,
             chunkBlockData.backFaceTexCoords,
+            0.7,
             currentVIndex
         );
 
@@ -73,6 +74,7 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<IChunk> chunk, bool remeshNeighbor
             adjacentChunkPositions.front,
             block_data::frontFace,
             chunkBlockData.frontFaceTexCoords,
+            0.7,
             currentVIndex
         );
 
@@ -88,6 +90,7 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<IChunk> chunk, bool remeshNeighbor
             adjacentChunkPositions.right,
             block_data::rightFace,
             chunkBlockData.rightFaceTexCoords,
+            0.7,
             currentVIndex
         );
 
@@ -103,6 +106,7 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<IChunk> chunk, bool remeshNeighbor
             adjacentChunkPositions.left,
             block_data::leftFace,
             chunkBlockData.leftFaceTexCoords,
+            0.7,
             currentVIndex
         );
 
@@ -118,6 +122,7 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<IChunk> chunk, bool remeshNeighbor
                 adjacentChunkPositions.top,
                 block_data::topFace,
                 chunkBlockData.topFaceTexCoords,
+                1.0,
                 currentVIndex
         );
 
@@ -133,6 +138,7 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<IChunk> chunk, bool remeshNeighbor
                 adjacentChunkPositions.bottom,
                 block_data::bottomFace,
                 chunkBlockData.bottomFaceTexCoords,
+                0.1,
                 currentVIndex
         );
     }
@@ -149,10 +155,10 @@ void ChunkMeshGenerator::addFace(
         const glm::vec3& adjacentChunkPosition,
         const std::vector<float>& faceVertices,
         const std::vector<float>& texCoords,
+        float brightnessLevel,
         unsigned int& currentVIndex
 ) {
     const auto& neighbouringBlock = chunk->getBlockAtPosition(adjacentBlockPosition);
-    const auto& chunkPosition = chunk->getPosition();
     // if the neighbouring block is not solid, then add the face to the mesh
     const auto& blockData = block_type_data::getBlockDataByType(neighbouringBlock.getType());
 
@@ -160,37 +166,37 @@ void ChunkMeshGenerator::addFace(
     if(!isNeighboringBlockSolid) {
         // if the neighbouring block is an air block, but the block is
         // at an edge of a chunk, check the block in the neighbouring chunk
-        std::string key = fmt::format(
-                "{} {} {}",
-                adjacentChunkPosition.x,
-                adjacentChunkPosition.y,
-                adjacentChunkPosition.z
-        );
+//        std::string key = fmt::format(
+//                "{} {} {}",
+//                adjacentChunkPosition.x,
+//                adjacentChunkPosition.y,
+//                adjacentChunkPosition.z
+//        );
 //        auto neighbouringChunkIter = m_WorldChunks.find(key);
 //        if(neighbouringChunkIter != m_WorldChunks.end()) {
 //            auto neighbouringChunkBlock = neighbouringChunkIter->second->getBlockAtPosition(adjacentBlockPosition);
 //            auto& neighbouringChunkBlockData = block_type_data::getBlockDataByType(neighbouringChunkBlock.getType());
 //            isNeighboringBlockSolid = neighbouringChunkBlockData.isSolid;
 //        }
+        for(int i = 0, j = 0, k = 0; i < 4; i++) {
+            // block position data
+            vertices.push_back(faceVertices[j++] + blockPosition.x);
+            vertices.push_back(faceVertices[j++] + blockPosition.y);
+            vertices.push_back(faceVertices[j++] + blockPosition.z);
 
-        if(!isNeighboringBlockSolid) {
-            for(int i = 0, j = 0, k = 0; i < 4; i++) {
-                // block position data
-                vertices.push_back(faceVertices[j++] + blockPosition.x);
-                vertices.push_back(faceVertices[j++] + blockPosition.y);
-                vertices.push_back(faceVertices[j++] + blockPosition.z);
+            // block texture coordinates data
+            vertices.push_back(texCoords[k++]); // s
+            vertices.push_back(texCoords[k++]); // t
 
-                // block texture coordinates data
-                vertices.push_back(texCoords[k++]); // s
-                vertices.push_back(texCoords[k++]); // t
-            }
-
-            // indices for the 2 added triangles
-            indices.insert(indices.end(), {
-                    currentVIndex, currentVIndex + 1, currentVIndex + 2,
-                    currentVIndex + 2, currentVIndex + 3, currentVIndex,
-            });
-            currentVIndex += 4;
+            // brightness level
+            vertices.push_back(brightnessLevel);
         }
+
+        // indices for the 2 added triangles
+        indices.insert(indices.end(), {
+                currentVIndex, currentVIndex + 1, currentVIndex + 2,
+                currentVIndex + 2, currentVIndex + 3, currentVIndex,
+        });
+        currentVIndex += 4;
     }
 }

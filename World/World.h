@@ -36,10 +36,6 @@ class World {
 
         std::queue<glm::vec3> toGenerate;
         std::queue<std::shared_ptr<IChunk>> toMesh;
-
-        void generateChunks();
-        void meshChunks();
-
     public:
     std::mutex m_ChunksMutex;
         World(const Camera& camera);

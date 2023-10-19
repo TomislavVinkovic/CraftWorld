@@ -3,8 +3,9 @@
 ChunkMesh::ChunkMesh() {
     VertexBufferLayout layout;
     // for now, only add position and texture positions
-    layout.push<float>(3);
-    layout.push<float>(2);
+    layout.push<float>(3); // block position
+    layout.push<float>(2); // block face texture coords
+    layout.push<float>(1); // block face brightness level
 
     m_Vao.addBuffers(m_Vbo, m_Ibo, layout);
 }

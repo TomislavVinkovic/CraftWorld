@@ -27,6 +27,7 @@ class ChunkMeshGenerator {
                 const glm::vec3& adjacentChunkPosition,
                 const std::vector<float>& faceVertices,
                 const std::vector<float>& texCoords,
+                float brightnessLevel,
                 unsigned int& currentVIndex
         );
 
