@@ -1,0 +1,146 @@
+[
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/gcc -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -o CMakeFiles/CraftWorld.dir/vendor/glad/glad.c.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad/glad.c",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad/glad.c",
+  "output": "CMakeFiles/CraftWorld.dir/vendor/glad/glad.c.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/vendor/stb_image/stb_image.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/stb_image/stb_image.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/stb_image/stb_image.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/vendor/stb_image/stb_image.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/main.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/main.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/main.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/main.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/GLDebug/GLDebug.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug/GLDebug.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug/GLDebug.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/GLDebug/GLDebug.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Renderer/Shader/Shader.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer/Shader/Shader.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer/Shader/Shader.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Renderer/Shader/Shader.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Camera/Camera.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Camera/Camera.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera/Camera.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Camera/Camera.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Player/Player.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Player/Player.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Player/Player.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Player/Player.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Util/DeltaTime/DeltaTime.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Util/DeltaTime/DeltaTime.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Util/DeltaTime/DeltaTime.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Util/DeltaTime/DeltaTime.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Renderer/IndexBuffer/IndexBuffer.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer/IndexBuffer/IndexBuffer.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer/IndexBuffer/IndexBuffer.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Renderer/IndexBuffer/IndexBuffer.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Renderer/VertexArray/VertexArray.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer/VertexArray/VertexArray.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer/VertexArray/VertexArray.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Renderer/VertexArray/VertexArray.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Renderer/VertexBuffer/VertexBuffer.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer/VertexBuffer/VertexBuffer.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer/VertexBuffer/VertexBuffer.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Renderer/VertexBuffer/VertexBuffer.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Renderer/Texture/TextureAtlas.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer/Texture/TextureAtlas.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer/Texture/TextureAtlas.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Renderer/Texture/TextureAtlas.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Generation/Block/ChunkBlockData.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Generation/Block/ChunkBlockData.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation/Block/ChunkBlockData.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Generation/Block/ChunkBlockData.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Model/Block/Block.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Model/Block/Block.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Model/Block/Block.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Model/Block/Block.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Mesh/BlockMesh/BlockMesh.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh/BlockMesh/BlockMesh.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh/BlockMesh/BlockMesh.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Mesh/BlockMesh/BlockMesh.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Model/Chunk/Chunk/Chunk.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Model/Chunk/Chunk/Chunk.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Model/Chunk/Chunk/Chunk.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Model/Chunk/Chunk/Chunk.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Mesh/ChunkMesh/ChunkMesh.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh/ChunkMesh/ChunkMesh.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh/ChunkMesh/ChunkMesh.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Mesh/ChunkMesh/ChunkMesh.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Model/ChunkBlock/ChunkBlock.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Model/ChunkBlock/ChunkBlock.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Model/ChunkBlock/ChunkBlock.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Model/ChunkBlock/ChunkBlock.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Generation/ChunkMeshGenerator/ChunkMeshGenerator.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Generation/ChunkMeshGenerator/ChunkMeshGenerator.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation/ChunkMeshGenerator/ChunkMeshGenerator.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Generation/ChunkMeshGenerator/ChunkMeshGenerator.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/World/World.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/World/World.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/World/World.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/World/World.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Generation/ChunkGenerator/ChunkGenerator.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Generation/ChunkGenerator/ChunkGenerator.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation/ChunkGenerator/ChunkGenerator.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Generation/ChunkGenerator/ChunkGenerator.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Model/Chunk/ChunkBlockLayer/ChunkBlockLayer/ChunkBlockLayer.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Model/Chunk/ChunkBlockLayer/ChunkBlockLayer/ChunkBlockLayer.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Model/Chunk/ChunkBlockLayer/ChunkBlockLayer/ChunkBlockLayer.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Model/Chunk/ChunkBlockLayer/ChunkBlockLayer/ChunkBlockLayer.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Model/Chunk/IChunk/IChunk.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Model/Chunk/IChunk/IChunk.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Model/Chunk/IChunk/IChunk.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Model/Chunk/IChunk/IChunk.cpp.o"
+},
+{
+  "directory": "/home/tomislav/Desktop/graphics_programming/CraftWorld/build",
+  "command": "/usr/bin/g++ -I/home/tomislav/Desktop/graphics_programming/CraftWorld/src -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor -I/home/tomislav/Desktop/graphics_programming/CraftWorld/vendor/glad -I/home/tomislav/Desktop/graphics_programming/CraftWorld/GLDebug -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Renderer -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Player -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Camera -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Util -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Generation -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Mesh -I/home/tomislav/Desktop/graphics_programming/CraftWorld/Model -g -std=gnu++20 -o CMakeFiles/CraftWorld.dir/Model/Chunk/SingleBlockTypeChunk/SingleBlockTypeChunk.cpp.o -c /home/tomislav/Desktop/graphics_programming/CraftWorld/Model/Chunk/SingleBlockTypeChunk/SingleBlockTypeChunk.cpp",
+  "file": "/home/tomislav/Desktop/graphics_programming/CraftWorld/Model/Chunk/SingleBlockTypeChunk/SingleBlockTypeChunk.cpp",
+  "output": "CMakeFiles/CraftWorld.dir/Model/Chunk/SingleBlockTypeChunk/SingleBlockTypeChunk.cpp.o"
+}
+]
