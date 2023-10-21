@@ -4,26 +4,31 @@
 #include "glm/glm.hpp"
 #include "ChunkBlock/ChunkBlock.h"
 
+#include <memory>
+
 /* Abstract class, can be either a real chunk, or a hollow chunk
  * using a single block type (saves memory)
 */
 
 class IChunk {
     public:
+
+        ChunkMeshData meshData;
+
         bool isGenerated = false;
         bool isFlaggedForRemeshing = false;
         bool isMeshed = false; // to be used later, when i implement the infinite world
     protected:
-        ChunkMesh m_ChunkMesh;
+        std::shared_ptr<ChunkMesh> m_ChunkMesh;
         glm::vec3 position;
     public:
         const static int chunkSize = 32;
 
         // getters
         const glm::vec3& getPosition() const { return position; }
-        unsigned int getIndexCount() const { return m_ChunkMesh.getIndices().size(); }
-        unsigned int getVertexCount() const { return m_ChunkMesh.getVertices().size(); }
-        const ChunkMesh& getMesh() const { return m_ChunkMesh; }
+        unsigned int getIndexCount() const { return m_ChunkMesh == nullptr ? 0 : m_ChunkMesh->getIndices().size(); }
+        unsigned int getVertexCount() const { return m_ChunkMesh == nullptr ? 0 : m_ChunkMesh->getVertices().size(); }
+        std::shared_ptr<ChunkMesh> getMesh() const { return m_ChunkMesh; }
 
 
         virtual ChunkBlock getBlockAtPosition(const glm::vec3& blockPosition) const = 0;
@@ -36,7 +41,8 @@ class IChunk {
             this->position = position;
             return this->position;
         }
-        void mesh(ChunkMeshData data);
+        void applyMesh();
+        void setData(const ChunkMeshData& data);
 
         // opengl bindings
         void bind() const;

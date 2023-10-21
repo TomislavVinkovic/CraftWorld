@@ -19,14 +19,14 @@ std::shared_ptr<IChunk> ChunkGenerator::generate(const glm::vec3& position) {
         std::vector<ChunkBlock> blocks;
         ChunkBlockType prevBlockType;
 
-        float freq = 0.1;
-        float amp = 10;
+        float freq = 0.006;
+        float amp = 30;
         for(int i = 0; i < pow(IChunk::chunkSize, 2); i++) {
 
             int blockPosX = position.x + (i/32);
             int blockPosZ = position.z + (i%32);
 
-            int heightOffset = static_cast<int>(noiseGenerator.octave2D_11((blockPosX * 0.006), (blockPosZ * 0.006), 4) * 30);
+            int heightOffset = static_cast<int>(noiseGenerator.octave2D_11((blockPosX * freq), (blockPosZ * freq), 4) * amp);
 
             int surfaceY = walkingLevel + heightOffset;
 
@@ -68,9 +68,13 @@ std::shared_ptr<IChunk> ChunkGenerator::generate(const glm::vec3& position) {
     }
 
     if(areChunkLayersSame) {
-        return std::make_shared<SingleBlockTypeChunk>(blockLayers[0]->getBlockAt(0,0).getType(), position);
+        auto chunk = std::make_shared<SingleBlockTypeChunk>(blockLayers[0]->getBlockAt(0,0).getType(), position);
+        chunk->isGenerated = true;
+        return chunk;
     }
     else {
-        return std::make_shared<Chunk>(blockLayers, position);
+        auto chunk = std::make_shared<Chunk>(blockLayers, position);
+        chunk->isGenerated = true;
+        return chunk;
     }
 }

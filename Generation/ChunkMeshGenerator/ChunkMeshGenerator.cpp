@@ -142,7 +142,7 @@ void ChunkMeshGenerator::mesh(std::shared_ptr<IChunk> chunk, bool remeshNeighbor
                 currentVIndex
         );
     }
-    chunk->mesh(meshData);
+    chunk->setData(meshData);
 }
 
 void ChunkMeshGenerator::addFace(

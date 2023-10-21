@@ -7,7 +7,7 @@ class Player {
     private:
         Camera camera;
 
-        float movementSpeed = 10.f;
+        float movementSpeed = 25.f;
 
     public:
         Player(Camera camera);

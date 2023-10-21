@@ -21,19 +21,30 @@ glm::vec3 IChunk::getBlockPositionFromIndex(int i) const {
     return {x, y, z};
 }
 
-void IChunk::mesh(ChunkMeshData data) {
+void IChunk::setData(const ChunkMeshData& data) {
+    meshData = data;
+}
+
+void IChunk::applyMesh() {
+    m_ChunkMesh = std::make_shared<ChunkMesh>();
     // set the "isMeshed" flag to true
-    isMeshed = true;
 
     // add vertices and indices to the mesh
-    m_ChunkMesh.setIndices(data.indices);
-    m_ChunkMesh.setVertices(data.vertices);
+    m_ChunkMesh->setIndices(meshData.indices);
+    m_ChunkMesh->setVertices(meshData.vertices);
+    meshData = {}; // clear the mesh data from here since it is copied to the mesh
+
+    isMeshed = true;
 }
 
 void IChunk::bind() const {
-    m_ChunkMesh.bind();
+    if(m_ChunkMesh != nullptr) {
+        m_ChunkMesh->bind();
+    }
 }
 
 void IChunk::unbind() const {
-    m_ChunkMesh.unbind();
+    if(m_ChunkMesh == nullptr) {
+        m_ChunkMesh->unbind();
+    }
 }
